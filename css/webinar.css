@@ -1,0 +1,33 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    outline: 1px solid tomato;
+};
+
+.button__item {
+    margin: 4px;
+};
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    outline: 1px solid tomato;
+    list-style: none;
+
+}
+
+.tags__items {
+    margin: 5px;
+}
+.tags__btn {
+    border: 1px solid red;
+    border-radius: 6px;
+    display: inline-block;
+
+    text-decoration: salmon;
+    cursor: pointer;
+}
+
+.tag__btn--active {
+    border: slateblue;
+}
