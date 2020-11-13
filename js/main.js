@@ -1,13 +1,13 @@
 import galleryItems from './gallery-items.js';  
-console.log(galleryItems);
 
 const galleryContainer = document.querySelector('.js-gallery');
-console.log(galleryContainer);
+const backdrop = document.querySelector('.js-lightbox');
+const openModalBox = document.querySelector('.lightbox__image');
+const closeModalBtn = document.querySelector('[data-action="close-lightbox"]');
 
 
-const makeGallery = function(galleryItems) {
- const {preview, original, description} = galleryItems;
- return `<li class="gallery__item">
+const makeGalleryRowMarkUp = function({preview, original, description} = galleryItems) {
+   return `<li class="gallery__item">
     <a
     class="gallery__link"
     href="${original}"
@@ -21,16 +21,69 @@ const makeGallery = function(galleryItems) {
     </a>
     </li>`;
   }
-const makeGalleryRowMarkUp = galleryItems.map(makeGallery).join('');
-galleryContainer.insertAdjacentHTML('afterbegin', makeGalleryRowMarkUp); 
+const makeGallery = galleryItems.map(makeGalleryRowMarkUp).join('');
+galleryContainer.insertAdjacentHTML('afterbegin', makeGallery); 
+galleryContainer.addEventListener('click', onClick);
+function onClick(event) {
+    event.preventDefault()
+    if (event.target.nodeName !=='IMG') {
+          return;
+      }
+    };
 
-galleryContainer.addEventListener('click', onGalleryContainerClick);
-function onGalleryContainerClick(event){
-    if (event.target.nodeName !=='BUTTON') {
-        return;
+    openModalBox.addEventListener('click', onOpenModalBoxClick);
+    function onOpenModalBoxClick(event) {
+      window.addEventListener('keydown', onEscapePress);
+      document.body.classList.add('is-open');
+  };
+  console.log(openModalBox);
+
+  closeModalBtn.addEventListener('click', onCloseModalBtnClick);
+  function onCloseModalBtnClick(event) {
+    window.removeEventListener('keydown', onEscapePress);
+};
+console.log(closeModalBtn);
+
+backdrop.addEventListener('click', onBackdropClick);
+function onBackdropClick(event) {
+    if (event.currentTarget === event.target) {
+      onCloseModal();
     }
-    console.log(event.target);
-    }
+  
+  }
+  console.log(backdrop);
+
+   function onEscapePress (event) {
+  console.log(event);
+   if(event.code === 'Escape') {
+    closeModalBtn();
+   }
+}
+  
+// galleryContainer.childNodes.forEach(function(item) {
+//   item.addEventListener('click', onOpenModal);
+// });
+// galleryContainer.addEventListener('click', openModalWindow)
+// function openModalWindow(event) {
+//   event.preventDefault()
+//   if (event.target.nodeName !=='IMG') {
+//         return;
+//     }
+//     console.log(event.target);
+  //   modalImg.classList.add('is-open')
+  // fullImg.src = event.target.dataset.source
+  // fullImg.alt = event.target.dataset.alt
+// }
+
+
+ 
+// galleryContainer.addEventListener('click', onGalleryContainerClick);
+// function onGalleryContainerClick(event){
+//     if (event.target.nodeName !=='BUTTON') {
+//         return;
+//     }
+//     console.log(event.target);
+//     }
 // Создай галерею с возможностью клика по ее элементам и 
 // просмотра полноразмерного изображения в модальном окне. 
 // Превью результата посмотри по ссылке.бей задание на несколько подзадач:
@@ -48,27 +101,47 @@ function onGalleryContainerClick(event){
 // Ссылка на оригинальное изображение должна храниться в 
 // data-атрибуте source на элементе img, и указываться в href 
 // ссылки (это необходимо для доступности).
-//<li class="gallery__item">
-//   <a
-//     class="gallery__link"
-//     href="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546_1280.jpg"
-//   >
-//     <img
-//       class="gallery__image"
-//       src="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546__340.jpg"
-//       data-source="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546_1280.jpg"
-//       alt="Tulips"
-//     />
-//   </a>
-// </li>
+
 
 // const lightboxEl = document.querySelector('.js-lightbox');
-// console.log(lightboxEl);
+// const imageREf = document.querySelector('.gallery__link').childNodes;
+// console.log(imageREf);
+// document.querySelector('.gallery__link').addEventListener('click', onOpenModal);
 
-// const buttonEl = document.createElement('button');
+// const closeLightboxEl = document.querySelector('[data-action="close-lightbox"]');
+// // closeLightboxEl = '../images';
+// console.log(closeLightboxEl);
+
+// window.addEventListener('keydown',)
+
+// closeLightboxEl.addEventListener('click', onCloseModal);
+
+
+// function onCloseModal(event) {
+//   document.body.classList.remove('[data-action="close-lightbox"]');
+//   console.log(event);
+
+// }
+
+// function onOpenModal(event) {
+//   document.body.classList.add('.js-lightbox');
+//   if (event.currentTarget === event.target) {
+//     console.log('close it');
+//     onCloseModal();
+//   }
+//   event.preventDefault();
+//   console.log(event);
+
+// }
+//  function onKeyPress (event) {
+// console.log(event);
+//  }
+
+
+// const buttonEl = document.createElement('.lightbox__button');
 //     buttonEl.type = 'button';
-//     buttonEl.classList.add('lightbox__button');
-//     // buttonEl.textContent = ;
+//     // buttonEl.classList.add('lightbox__button');
+//     buttonEl.src = '../images/icon-close.svg';
 
 // console.log(buttonEl);
 
