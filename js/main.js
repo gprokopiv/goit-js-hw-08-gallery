@@ -2,7 +2,7 @@ import galleryItems from './gallery-items.js';
 
 const galleryContainer = document.querySelector('.js-gallery');
 const backdrop = document.querySelector('.js-lightbox');
-const openModalBox = document.querySelector('.lightbox__image');
+const onOpenModalBoxClick = document.querySelector('.lightbox__image');
 const closeModalBtn = document.querySelector('[data-action="close-lightbox"]');
 
 
@@ -23,57 +23,70 @@ const makeGalleryRowMarkUp = function({preview, original, description} = gallery
   }
 const makeGallery = galleryItems.map(makeGalleryRowMarkUp).join('');
 galleryContainer.insertAdjacentHTML('afterbegin', makeGallery); 
+
+
 galleryContainer.addEventListener('click', onClick);
 function onClick(event) {
     event.preventDefault()
     if (event.target.nodeName !=='IMG') {
           return;
-      }
-    };
+      }    
+  console.log(event.target);
 
-    openModalBox.addEventListener('click', onOpenModalBoxClick);
-    function onOpenModalBoxClick(event) {
-      window.addEventListener('keydown', onEscapePress);
-      document.body.classList.add('is-open');
-  };
-  console.log(openModalBox);
-
-  closeModalBtn.addEventListener('click', onCloseModalBtnClick);
-  function onCloseModalBtnClick(event) {
-    window.removeEventListener('keydown', onEscapePress);
+// const currentActiveCard = document.querySelector('.lightbox.is-open');
+// if(currentActiveCard) {
+//     currentActiveCard.classList.remove('.lightbox.is-open');
+// }
+// onOpenModalBoxClick();
 };
-console.log(closeModalBtn);
+    
 
-backdrop.addEventListener('click', onBackdropClick);
-function onBackdropClick(event) {
-    if (event.currentTarget === event.target) {
-      onCloseModal();
-    }
+ 
+  //   openModalBox.addEventListener('click', onOpenModalBoxClick);
+  //   function onOpenModalBoxClick(event) {
+  //     window.addEventListener('keydown', onEscapePress);
+  //     document.body.classList.add('.lightbox.is-open');
+  // };
+  // console.log(openModalBox);
+
+//   closeModalBtn.addEventListener('click', onCloseModalBtnClick);
+//   function onCloseModalBtnClick(event) {
+//     window.removeEventListener('keydown', onEscapePress);
+// };
+// console.log(closeModalBtn);
+
+// backdrop.addEventListener('click', onBackdropClick);
+// function onBackdropClick(event) {
+//     if (event.currentTarget === event.target) {
+//       onCloseModal();
+//     }
+
+
+    
   
-  }
-  console.log(backdrop);
+  
+  // console.log(backdrop);
 
    function onEscapePress (event) {
-  console.log(event);
    if(event.code === 'Escape') {
     closeModalBtn();
    }
 }
   
-// galleryContainer.childNodes.forEach(function(item) {
-//   item.addEventListener('click', onOpenModal);
-// });
-// galleryContainer.addEventListener('click', openModalWindow)
-// function openModalWindow(event) {
-//   event.preventDefault()
-//   if (event.target.nodeName !=='IMG') {
-//         return;
-//     }
-//     console.log(event.target);
-  //   modalImg.classList.add('is-open')
-  // fullImg.src = event.target.dataset.source
-  // fullImg.alt = event.target.dataset.alt
-// }
+galleryContainer.childNodes.forEach(function(item) {
+  item.addEventListener('click', onOpenModalBoxClick);
+});
+galleryContainer.addEventListener('click', onOpenModalBoxClick)
+function openModalWindow(event) {
+  event.preventDefault()
+  if (event.target.nodeName !=='IMG') {
+        return;
+    }
+    console.log(event.target);
+    modalImg.classList.add('is-open')
+  fullImg.src = event.target.dataset.source
+  fullImg.alt = event.target.dataset.alt
+}
 
 
  
@@ -162,4 +175,18 @@ function onBackdropClick(event) {
 // Закрытие модального окна по клику на div.lightbox__overlay.
 // Закрытие модального окна по нажатию клавиши ESC.
 // Пролистывание изображений галереи в открытом модальном окне клавишами "влево" и "вправо".
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

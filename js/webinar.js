@@ -154,7 +154,6 @@ function onPaletteContainerClick(event){
     }
     
     
-    
     // const swatchEl = event.target.classList.add('is-active');
     const swatchEl = event.target;
     const parentColorCars = swatchEl.closest('.color-swatch');
